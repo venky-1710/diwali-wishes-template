@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { Star, Moon, Heart, Share2, Settings, X } from 'lucide-react';
 import './App.css';
+import emailjs from 'emailjs-com'; // Import EmailJS
 
 const THEME_COLORS = {
   traditional: {
@@ -29,6 +30,7 @@ const DiwaliWebsite = () => {
   const [showSettings, setShowSettings] = useState(false);
   const [theme, setTheme] = useState('traditional');
   const [userName, setUserName] = useState('');
+  const [senderName, setSenderName] = useState(''); // State for sender's name
 
   // Initialize diyas
   useEffect(() => {
@@ -78,18 +80,33 @@ const DiwaliWebsite = () => {
   // Handle wish submission
   const handleWishSubmit = (e) => {
     e.preventDefault();
-    if (!wishMessage.trim()) return;
+    if (!wishMessage.trim() || !senderName.trim()) return;
 
     // Animation for wish submission
     const wishElement = document.createElement('div');
     wishElement.className = 'floating-wish';
-    wishElement.textContent = wishMessage;
+    wishElement.textContent = `${senderName}: ${wishMessage}`;
     document.body.appendChild(wishElement);
     
     setTimeout(() => wishElement.remove(), 3000);
+    // Send email using EmailJS
+    const templateParams = {
+      message: `${senderName}: ${wishMessage}`, // Include sender's name in the message
+      user_name: userName,
+      reply_to: "venkysss47@gmail.com" // Replace with the recipient's email
+    };
+    emailjs.send('venky_1710', 'template_18c538p', templateParams, 'P4kkNNno4elF8pSQ9')
+    .then((response) => {
+        console.log('SUCCESS!', response.status, response.text);
+    }, (err) => {
+        console.log('FAILED...', err);
+    });
     setWishMessage('');
+    setSenderName('');
     setShowWishForm(false);
   };
+
+
 
   // Share functionality
   const handleShare = async () => {
@@ -243,8 +260,26 @@ const DiwaliWebsite = () => {
             >
               <X size={24} />
             </button>
-            <h2 style={{color:'white'}}>Send Your Wishes</h2>
+            <h3 className="email-prompt" style={{ textAlign:'center', justifyContent: 'center', alignItems: 'center', color: 'lightgrey', marginBottom: '20px' }}>
+              Send wishes directly at &nbsp;<a href='mailto:venkysss47@gmail.com' style={{color:'lightgrey'}}>venkysss47@gmail.com</a>
+            </h3>
+            <div style={{ display: 'flex', alignItems: 'center', color: 'lightgrey' }}>
+              <hr style={{ flex: 1, border: 'none', borderTop: '1px solid white', margin: '0 10px' }} />
+              <p style={{ margin: '0' }}>or</p>
+              <hr style={{ flex: 1, border: 'none', borderTop: '1px solid white', margin: '0 10px' }} />
+            </div>
+            <p style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', color: 'lightgrey', marginBottom: '20px' }}>
+              Through this form.
+            </p>
             <form onSubmit={handleWishSubmit}>
+              {/* Text box for sender's name */}
+              <input
+                type="text"
+                value={senderName}
+                onChange={(e) => setSenderName(e.target.value)}
+                placeholder="Your Name"
+                required // Make this field required
+              />
               <textarea
                 value={wishMessage}
                 onChange={(e) => setWishMessage(e.target.value)}
