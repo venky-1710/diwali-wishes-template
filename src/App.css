@@ -1,38 +1,448 @@
-.App {
-  text-align: center;
+/* diwali-styles.css */
+:root {
+  /* Theme variables - will be modified by JavaScript */
+  --primary-color: #FFA500;
+  --secondary-color: #FF4500;
+  --accent-color: #FFD700;
+  --background-start: #2D1B4E;
+  --background-middle: #7B341E;
+  --background-end: #742A2A;
 }
 
-.App-logo {
-  height: 40vmin;
+/* Base styles */
+.diwali-container {
+  min-height: 100vh;
+  background: linear-gradient(
+    135deg,
+    var(--background-start) 0%,
+    var(--background-middle) 50%,
+    var(--background-end) 100%
+  );
+  position: relative;
+  overflow: hidden;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Theme variations */
+.diwali-container[data-theme='modern'] {
+  --primary-color: #FF3366;
+  --secondary-color: #9C27B0;
+  --accent-color: #FFD700;
+  --background-start: #1A237E;
+  --background-middle: #311B92;
+  --background-end: #4A148C;
+}
+
+.diwali-container[data-theme='elegant'] {
+  --primary-color: #B76E79;
+  --secondary-color: #7B506F;
+  --accent-color: #C1A173;
+  --background-start: #2C3E50;
+  --background-middle: #34495E;
+  --background-end: #2C3E50;
+}
+
+/* Animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes flicker {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(0.95); }
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes sparkle {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.2); }
+}
+
+@keyframes firework {
+  0% { transform: scale(0); opacity: 1; }
+  50% { transform: scale(1); opacity: 0.8; }
+  100% { transform: scale(1.2); opacity: 0; }
+}
+
+@keyframes wishFloat {
+  0% { transform: translateY(0) scale(1); opacity: 1; }
+  100% { transform: translateY(-100px) scale(0); opacity: 0; }
+}
+
+/* Decorative elements */
+.rangoli {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  opacity: 0.1;
+  background: conic-gradient(
+    from 0deg,
+    var(--primary-color),
+    var(--secondary-color),
+    var(--accent-color),
+    var(--primary-color)
+  );
+  animation: rotate 20s linear infinite;
+}
+
+.rangoli.top-left {
+  top: -150px;
+  left: -150px;
+}
+
+.rangoli.bottom-right {
+  bottom: -150px;
+  right: -150px;
+}
+
+/* Stars */
+.star {
+  position: absolute;
+  color: var(--accent-color);
+  animation: sparkle 2s ease-in-out infinite;
+}
+
+/* Diya styles */
+.diya {
+  position: absolute;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.diya:hover {
+  transform: scale(1.1);
+}
+
+.diya-flame {
+  width: 24px;
+  height: 24px;
+  background: radial-gradient(
+    circle at center,
+    var(--accent-color) 0%,
+    var(--primary-color) 50%,
+    var(--secondary-color) 100%
+  );
+  border-radius: 50%;
+  animation: flicker 1.5s ease-in-out infinite;
+}
+
+.diya.lit .diya-flame {
+  box-shadow: 
+    0 0 10px var(--primary-color),
+    0 0 20px var(--accent-color),
+    0 0 30px var(--secondary-color);
+}
+
+/* Continuing diwali-styles.css */
+
+.diya-glow {
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.diya.lit .diya-glow {
+  opacity: 1;
+  animation: flicker 2s ease-in-out infinite;
+}
+
+/* Main content styles */
+.main-content {
+  position: relative;
+  z-index: 10;
+  padding: 2rem;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 1s ease-out;
+}
+
+.main-content.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.moon-icon {
+  color: var(--accent-color);
+  animation: float 6s ease-in-out infinite;
+  margin-bottom: 2rem;
+}
+
+.title {
+  font-size: 4rem;
+  font-weight: bold;
+  color: var(--accent-color);
+  text-shadow: 
+    0 0 10px var(--primary-color),
+    0 0 20px var(--secondary-color);
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.user-name {
+  font-size: 1.5rem;
+  color: var(--primary-color);
+  margin-top: 0.5rem;
+  animation: sparkle 2s ease-in-out infinite;
+}
+
+/* Glass card styles */
+.glass-card {
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(8px);
+  border-radius: 1rem;
+  padding: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.message {
+  font-size: 1.25rem;
+  color: #FFF8DC;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+/* Button styles */
+.buttons-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.festive-button {
+  padding: 0.75rem 1.5rem;
+  border-radius: 9999px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.festive-button.primary {
+  background: var(--primary-color);
+  color: #000;
+}
+
+.festive-button.secondary {
+  background: var(--secondary-color);
+  color: #fff;
+}
+
+.festive-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px currentColor;
+}
+
+.icon {
+  animation: sparkle 2s ease-in-out infinite;
+}
+
+/* Modal styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.modal-content {
+  width: 90%;
+  max-width: 500px;
+  position: relative;
+}
+
+.close-button {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  color: var(--accent-color);
+  cursor: pointer;
+  padding: 0.5rem;
+  transition: transform 0.3s ease;
+}
+
+.close-button:hover {
+  transform: scale(1.1);
+}
+
+/* Form styles */
+textarea {
+  width: 93%;
+  min-height: 120px;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #fff;
+  resize: vertical;
+  margin-bottom: 1rem;
+}
+
+.modal-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+}
+
+/* Settings panel */
+.settings-button {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 100;
+  background: rgba(0, 0, 0, 0.3);
+  border: none;
+  color: var(--accent-color);
+  padding: 0.5rem;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.settings-button:hover {
+  transform: rotate(45deg);
+}
+
+.settings-panel {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 101;
+  width: 300px;
+}
+
+.settings-content {
+  margin-top: 1rem;
+}
+
+.name-input {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border-radius: 0.25rem;
+}
+
+.theme-selector {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.theme-button {
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.2);
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.theme-button.active {
+  background: var(--primary-color);
+  color: #000;
+}
+
+/* Fireworks */
+.fireworks-container {
+  position: fixed;
+  inset: 0;
   pointer-events: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+.firework {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at center,
+    var(--accent-color),
+    var(--primary-color)
+  );
+  animation: firework 1s ease-out forwards;
+}
+
+/* Floating wish animation */
+.floating-wish {
+  position: fixed;
+  left: 50%;
+  bottom: 20%;
+  transform: translateX(-50%);
+  color: var(--accent-color);
+  font-size: 1.5rem;
+  text-align: center;
+  animation: wishFloat 3s ease-out forwards;
+  pointer-events: none;
+  z-index: 1000;
+  text-shadow: 0 0 10px currentColor;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .title {
+    font-size: 3rem;
+  }
+
+  .message {
+    font-size: 1rem;
+  }
+
+  .rangoli {
+    width: 200px;
+    height: 200px;
+  }
+
+  .buttons-container {
+    flex-direction: column;
+  }
+
+  .settings-panel {
+    width: calc(100% - 7rem);
+    margin: 1rem;
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+/* Animation utilities */
+.animate-float {
+  animation: float 3s ease-in-out infinite;
 }
 
-.App-link {
-  color: #61dafb;
+.animate-sparkle {
+  animation: sparkle 2s ease-in-out infinite;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
+
+@keyframes slideIn {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
