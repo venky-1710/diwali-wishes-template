@@ -224,9 +224,7 @@ const DiwaliWebsite = () => {
         
         <div className="message-card glass-card">
           <p className="message">
-            May the divine light of Diwali spread into your life peace, 
-            prosperity, happiness, and good health. Let's celebrate this 
-            festival of lights with joy and love.
+          May the divine light of Diwali spread into your life with peace ✌️, prosperity 💰, happiness 😊, and good health 🏥. Let's joyfully celebrate this beautiful festival of lights 🪔 with joy 🎉 and love ❤️!.
           </p>
           <h4 style={{color:'#D3D3D3'}}>KIET | K-Hub</h4>
           
