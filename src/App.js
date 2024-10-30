@@ -131,7 +131,7 @@ const DiwaliWebsite = () => {
           >
             <X size={24} />
           </button>
-          <h3>Customize</h3>
+          <h3 style={{color:'white'}}>Customize</h3>
           <div className="settings-content">
             <input
               type="text"
