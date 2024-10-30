@@ -1,7 +1,7 @@
-// DiwaliWebsite.jsx
 import React, { useEffect, useState, useCallback } from 'react';
-import { Star, Moon, Heart, Share2, Volume2, VolumeX, Settings, X } from 'lucide-react';
+import { Star, Moon, Heart, Share2, Settings, X } from 'lucide-react';
 import './App.css';
+
 const THEME_COLORS = {
   traditional: {
     primary: '#FFA500',
@@ -23,7 +23,6 @@ const THEME_COLORS = {
 const DiwaliWebsite = () => {
   const [showContent, setShowContent] = useState(false);
   const [diyas, setDiyas] = useState([]);
-  const [isPlaying, setIsPlaying] = useState(false);
   const [clickedDiyas, setClickedDiyas] = useState(new Set());
   const [wishMessage, setWishMessage] = useState('');
   const [showWishForm, setShowWishForm] = useState(false);
@@ -57,26 +56,10 @@ const DiwaliWebsite = () => {
     return () => clearInterval(fireworksInterval);
   }, []);
 
-  // Sound effects
-  const playSound = useCallback((type = 'diya') => {
-    if (!isPlaying) return;
-    
-    const sounds = {
-      diya: '/api/placeholder/diya-sound',
-      firework: '/api/placeholder/firework-sound',
-      bell: '/api/placeholder/bell-sound'
-    };
-
-    const audio = new Audio(sounds[type]);
-    audio.volume = 0.3;
-    audio.play().catch(err => console.log('Audio playback failed:', err));
-  }, [isPlaying]);
-
   // Handle diya interaction
   const handleDiyaClick = (id) => {
     if (!clickedDiyas.has(id)) {
       setClickedDiyas(new Set([...clickedDiyas, id]));
-      playSound('diya');
       addFirework();
     }
   };
@@ -90,7 +73,6 @@ const DiwaliWebsite = () => {
     document.querySelector('.fireworks-container').appendChild(firework);
     
     setTimeout(() => firework.remove(), 1000);
-    playSound('firework');
   };
 
   // Handle wish submission
@@ -107,7 +89,6 @@ const DiwaliWebsite = () => {
     setTimeout(() => wishElement.remove(), 3000);
     setWishMessage('');
     setShowWishForm(false);
-    playSound('bell');
   };
 
   // Share functionality
@@ -243,18 +224,6 @@ const DiwaliWebsite = () => {
             
             <button 
               className="festive-button secondary"
-              onClick={() => setIsPlaying(!isPlaying)}
-            >
-              {isPlaying ? (
-                <Volume2 className="icon" size={16} />
-              ) : (
-                <VolumeX className="icon" size={16} />
-              )}
-              {isPlaying ? 'Sound On' : 'Sound Off'}
-            </button>
-            
-            <button 
-              className="festive-button primary"
               onClick={handleShare}
             >
               <Share2 className="icon" size={16} />
