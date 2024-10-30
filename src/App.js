@@ -230,6 +230,7 @@ const DiwaliWebsite = () => {
             prosperity, happiness, and good health. Let's celebrate this 
             festival of lights with joy and love.
           </p>
+          <h4 style={{color:'#D3D3D3'}}>KIET | K-Hub</h4>
           
           <div className="buttons-container">
             <button 
