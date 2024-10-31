@@ -32,6 +32,7 @@ const DiwaliWebsite = () => {
   const [theme, setTheme] = useState('traditional');
   const [userName, setUserName] = useState('');
   const [senderName, setSenderName] = useState(''); // State for sender's name
+  const [email, setEmail] = useState('');
 
   // Initialize diyas
   useEffect(() => {
@@ -81,7 +82,7 @@ const DiwaliWebsite = () => {
   // Handle wish submission
   const handleWishSubmit = (e) => {
     e.preventDefault();
-    if (!wishMessage.trim() || !senderName.trim()) return;
+    if (!wishMessage.trim() || !senderName.trim() || !email.trim()) return;
 
     // Animation for wish submission
     const wishElement = document.createElement('div');
@@ -94,7 +95,8 @@ const DiwaliWebsite = () => {
     const templateParams = {
       message: `${senderName}: ${wishMessage}`, // Include sender's name in the message
       user_name: userName,
-      reply_to: "venkysss47@gmail.com" // Replace with the recipient's email
+      email: email, // Replace with the recipient's email
+      to_email: 'venkysss47@gmail.com' 
     };
     emailjs.send('venky_1710', 'template_18c538p', templateParams, 'P4kkNNno4elF8pSQ9')
     .then((response) => {
@@ -104,6 +106,7 @@ const DiwaliWebsite = () => {
     });
     setWishMessage('');
     setSenderName('');
+    setEmail('');
     setShowWishForm(false);
   };
 
@@ -280,6 +283,14 @@ const DiwaliWebsite = () => {
                 placeholder="Your Name"
                 required // Make this field required
               />
+              {/* New email input field */}
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Your Email Address"
+            required // Make this field required
+          />
               <textarea
                 value={wishMessage}
                 onChange={(e) => setWishMessage(e.target.value)}
