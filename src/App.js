@@ -2,6 +2,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { Star, Moon, Heart, Share2, Settings, X } from 'lucide-react';
 import './App.css';
 import emailjs from 'emailjs-com'; // Import EmailJS
+import { Analytics } from "@vercel/analytics/react"
 
 const THEME_COLORS = {
   traditional: {
@@ -131,6 +132,7 @@ const DiwaliWebsite = () => {
 
   return (
     <div className="diwali-container" data-theme={theme}>
+      <Analytics />
       {/* Settings button */}
       <button 
         className="settings-button"
